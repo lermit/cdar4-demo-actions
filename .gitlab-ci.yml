@@ -1,0 +1,8 @@
+stages:
+  - build
+
+build image:
+  stage: build
+  image: docker:27
+  script:
+    - docker build -t java-app ./ 
