@@ -4,5 +4,7 @@ stages:
 build image:
   stage: build
   image: docker:27
+  services:
+    - docker:dind
   script:
     - docker build -t java-app ./ 
