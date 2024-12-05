@@ -1,9 +1,7 @@
-FROM maven:3.9.9
+FROM eclipse-temurin:21
 
 WORKDIR /app
 
-COPY ./ ./
+COPY target/spring-petclinic-3.4.0-SNAPSHOT.jar /app/app.jar
+CMD ["java", "-jar", "/app/app.jar"]
 
-RUN ./mvnw package
-
-CMD ["java", "-jar", "target/spring-petclinic-3.4.0-SNAPSHOT.jar"]
