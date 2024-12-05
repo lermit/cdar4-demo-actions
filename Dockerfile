@@ -6,4 +6,4 @@ COPY ./ ./
 
 RUN ./mvnw package
 
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["java", "-jar", "target/spring-petclinic-3.4.0-SNAPSHOT.jar"]
