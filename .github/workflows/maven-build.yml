@@ -20,16 +20,6 @@ jobs:
         java: [ '17' ]
 
     steps:
-      - name: Store repository lowercase
-        run: |
-          echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
-          TOTO=Project/TiTi
-          echo "GITHUB_REPOSITORY2=${TOTO,,}" >> ${GITHUB_ENV}
-
-      - name: debug
-        run: |
-          echo $GITHUB_REPOSITORY
-          echo $GITHUB_REPOSITORY2
       # Connexion sur le registry docker de github
       - name: Login to Gitlab Repository
         uses: docker/login-action@v3
@@ -62,10 +52,6 @@ jobs:
       - name: Store repository lowercase
         run: |
           echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
-
-      - name: debug
-        run: |
-          echo $GITHUB_REPOSITORY
       # Build et push de l'image docker sur la registry docker de github
       -
         name: Build and push
@@ -73,4 +59,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          tags: ghcr.io/${GITHUB_REPOSITORY}:${{ github.sha }}
