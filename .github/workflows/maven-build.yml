@@ -58,20 +58,22 @@ jobs:
 
       # Update render.com used image
       - name: Call Render API to update image
-        run: curl --request POST \
-              --url https://api.render.com/v1/services/${{ environnement.RENDER_SERVICE_ID }}/deploys \
-              --header 'accept: application/json' \
-              --header 'authorization: Bearer ${{ secrets.RENDER_TOKEN }}' \
-              --header 'content-type: application/json' \
-              --data '
-                {
-                  "clearCache": "do_not_clear",
-                  "imageUrl": "ghcr.io/${{ github.repository }}:${{ github.sha }}"
-                }
-                '
+        run: |
+          curl --request POST \
+            --url https://api.render.com/v1/services/${{ environnement.RENDER_SERVICE_ID }}/deploys \
+            --header 'accept: application/json' \
+            --header 'authorization: Bearer ${{ secrets.RENDER_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data '
+            {
+              "clearCache": "do_not_clear",
+              "imageUrl": "ghcr.io/${{ github.repository }}:${{ github.sha }}"
+            }
+            '
       # Retreive Project URL to display in action log
       - name: Get render.com Service URL
-        run: curl --request GET \
-              --url https://api.render.com/v1/services/${{ environnement.RENDER_SERVICE_ID }} \
-              --header 'accept: application/json' \
-              --header 'authorization: Bearer ${{ secrets.RENDER_TOKEN }}' 
+        run: |
+          curl --request GET \
+            --url https://api.render.com/v1/services/${{ environnement.RENDER_SERVICE_ID }} \
+            --header 'accept: application/json' \
+            --header 'authorization: Bearer ${{ secrets.RENDER_TOKEN }}' 
