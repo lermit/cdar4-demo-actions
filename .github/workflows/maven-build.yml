@@ -6,7 +6,7 @@ name: Java CI with Maven
 # Permet de spécifier sur quelle branche on va lancer les jobs
 on:
   push:
-    branches: [ main, github-registry ]
+    branches: [ main, github-registry, deploy-to-render ]
   pull_request:
     branches: [ main ]
 
@@ -21,7 +21,7 @@ jobs:
 
     steps:
       # Connexion sur le registry docker de github
-      - name: Login to Gitlab Repository
+      - name: Login to Github Container Repository
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -38,7 +38,7 @@ jobs:
           cache: maven
       # Build de l'application à l'aide de maven
       - name: Build with Maven Wrapper
-        run: ./mvnw -DskipTests -B package
+        run: ./mvnw -B package
       # Démarrage d'un environnement pour pouvoir démarrer une machine virtuelle
       -
         name: Set up QEMU
@@ -55,3 +55,10 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "test"
+
