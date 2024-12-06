@@ -44,4 +44,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/${{ github.GITHUB_REPOSITORY }}:${{ github.GITHUB_SHA }}
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
